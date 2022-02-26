@@ -1,6 +1,12 @@
 const house = new Entity();
-house.addComponent(new GLTFShape("models/casa3.gltf"));
-house.addComponent(new Transform({ position: new Vector3(8, 0, 8) }));
+house.addComponent(new GLTFShape("models/casa_ulla.gltf"));
+house.addComponent(
+  new Transform({
+    scale: new Vector3(0.7, 0.7, 0.7),
+    position: new Vector3(8, -0.25, 8),
+    rotation: new Quaternion(0, 1, 0, -1),
+  })
+);
 engine.addEntity(house);
 
 let doorStatus: string = "closed";
@@ -9,7 +15,7 @@ let action: string = "Open";
 const pivot = new Entity();
 pivot.addComponent(
   new Transform({
-    position: new Vector3(10.75, 1.25, 4),
+    position: new Vector3(10.25, 1.25, 5.2),
   })
 );
 engine.addEntity(pivot);
@@ -38,8 +44,8 @@ door.setParent(pivot);
 door.addComponent(new BoxShape());
 door.addComponent(
   new Transform({
-    scale: new Vector3(1.75, 2.3, 0.2),
-    position: new Vector3(-1, 0, 0),
+    scale: new Vector3(1.4, 2.2, 0.2),
+    position: new Vector3(-0.7, -0.15, 0),
   })
 );
 
@@ -53,3 +59,11 @@ doorMaterial.roughness = 0.3;
 
 //assign the material to the door
 door.addComponent(doorMaterial);
+
+const houseMaterial = new Material();
+houseMaterial.albedoColor = Color3.FromHexString("#654321");
+houseMaterial.metallic = 0.0;
+houseMaterial.roughness = 0.3;
+
+//assign the material to the door
+house.addComponent(houseMaterial);
