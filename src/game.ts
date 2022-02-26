@@ -12,6 +12,14 @@ engine.addEntity(house);
 let doorStatus: string = "closed";
 let action: string = "Open";
 
+const clip = new AudioClip("sounds/5.wav");
+const tala = new AudioClip("sounds/13.wav")
+
+// Create AudioSource component, referencing `clip`
+const sourceDoor = new AudioSource(clip);
+const sourceTree = new AudioSource(tala);
+
+
 const pivot = new Entity();
 pivot.addComponent(
   new Transform({
@@ -21,14 +29,17 @@ pivot.addComponent(
 engine.addEntity(pivot);
 
 const door = new Entity();
+door.addComponent(sourceDoor);
 door.addComponent(
   new OnPointerDown(
     () => {
       if (doorStatus == "closed") {
+        sourceDoor.playOnce();
         pivot.getComponent(Transform).rotate(Vector3.Up(), 90);
         doorStatus = "open";
         action = "Open";
       } else {
+        sourceDoor.playOnce();
         pivot.getComponent(Transform).rotate(Vector3.Up(), -90);
         doorStatus = "closed";
         action = "Close";
